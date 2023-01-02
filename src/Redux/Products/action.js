@@ -1,43 +1,52 @@
-const storeData = (payload) => ({
-  type: "STORE_DATA",
+import {
+  PRODUCT_LOADING,
+  PRODUCT_ERROR,
+  PRODUCT_SUCCES,
+  CURRENT_PRODUCT_LOADING,
+  CURRENT_PRODUCT_ERROR,
+  CURRENT_PRODUCT_SUCCES,
+} from "./actionTypes";
+
+const handleSuccess = (payload) => ({
+  type: PRODUCT_SUCCES,
   payload,
 });
 
 const handleLoading = () => ({
-  type: "IS_LOADING",
+  type: PRODUCT_LOADING,
 });
 
 const handleError = () => ({
-  type: "IS_ERROR",
+  type: PRODUCT_ERROR,
 });
 
-const getData = () => (dispatch) =>{
+const getData = () => (dispatch) => {
   dispatch(handleLoading());
   fetch("http://localhost:8000/products")
     .then((res) => res.json())
-    .then((res) => dispatch(storeData(res)))
+    .then((res) => dispatch(handleSuccess(res)))
     .catch(() => dispatch(handleError()));
 };
 
-const storeCurrentProductData = (payload) => ({
-  type: "CURRENT_PRODUCT_SUCCES",
+const handleCurrentProductSuccess = (payload) => ({
+  type: CURRENT_PRODUCT_SUCCES,
   payload,
 });
 
 const handleCurrentProductLoading = () => ({
-  type: "CURRENT_PRODUCT_LOADING",
+  type: CURRENT_PRODUCT_LOADING,
 });
 
 const handleCurrentProductError = () => ({
-  type: "CURRENT_PRODUCT_ERROR",
+  type: CURRENT_PRODUCT_ERROR,
 });
 
-const getCurrentProductData = (id) => (dispatch) =>{
+const getCurrentProductData = (id) => (dispatch) => {
   dispatch(handleCurrentProductLoading());
   fetch(`http://localhost:8000/products/${id}`)
     .then((res) => res.json())
-    .then((res) => dispatch(storeCurrentProductData(res)))
+    .then((res) => dispatch(handleCurrentProductSuccess(res)))
     .catch(() => dispatch(handleCurrentProductError()));
 };
 
-export {getData,getCurrentProductData};
+export { getData, getCurrentProductData };

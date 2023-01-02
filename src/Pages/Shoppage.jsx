@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Text } from "@chakra-ui/react";
 import Filter from "../Components/Filter";
 import Product from "../Components/Product";
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid} from "@chakra-ui/react";
 
 const Shoppage = () => {
-  const loading = useSelector((state) => state.length);
-  const products = useSelector((state) => state.products);
-  const error = useSelector((state) => state.error);
+  const loading = useSelector((state) => state.product.loading);
+  const products = useSelector((state) => state.product.products);
+  const error = useSelector((state) => state.product.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Shoppage = () => {
       ) : error ? (
         <h2>Something went wrong, please try again later</h2>
       ) : (
-        <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
           {products.length > 0 &&
             products.map((product) => {
               return <Product key={product.id} product={product} />;

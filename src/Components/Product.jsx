@@ -1,37 +1,38 @@
-import React,{useState} from 'react'
-import { Box,Image,Text,HStack } from '@chakra-ui/react'
-import {useNavigate} from "react-router"
+import React, { useState } from "react";
+import { Box, Image, Text, HStack } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 
-const Product = ({product}) => {
+const Product = ({ product }) => {
+  const { id, name, color, gender, original_price, final_price, images } =
+    product;
 
-  const {id, name, color, gender, original_price, final_price, images} = product
-
-  const [img, setImg] = useState(images[0])
+  const [img, setImg] = useState(images[0]);
   const navigate = useNavigate();
 
-  const showOtherImage = () =>{
-    setImg(images[1])
-  }
+  const showOtherImage = () => {
+    setImg(images[1]);
+  };
 
-  const showOriginalImage = () =>{
-    setImg(images[0])
-  }
-
+  const showOriginalImage = () => {
+    setImg(images[0]);
+  };
 
   return (
-    <Box onMouseEnter={showOtherImage}
-    onMouseLeave={showOriginalImage}
-    onClick={()=> navigate(`/collections/all/${id}`)}
+    <Box
+      onMouseEnter={showOtherImage}
+      onMouseLeave={showOriginalImage}
+      onClick={() => navigate(`/collections/all/${id}`)}
     >
-        <Image src={img} alt={name+ "shoe"}/>
-        <Text>{name + " | " + color + " | " + gender}</Text>
-        <HStack justify="center">
+      <Image src={img} alt={name + "shoe"} />
+      <Text>{name + " | " + color + " | " + gender}</Text>
+      <HStack justify="center">
         <Text>{final_price}</Text>
-        <Text color="gray" as="s">{original_price}</Text>
-        </HStack>
-        
+        <Text color="gray" as="s">
+          {original_price}
+        </Text>
+      </HStack>
     </Box>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
